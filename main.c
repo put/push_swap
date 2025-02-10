@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 17:32:46 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 18:02:13 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,60 @@ int **argstoarr(int count, char **args)
 	return (arr);
 }
 
+t_list *arrtolst(int **arr)
+{
+	t_list *first;
+	t_list *next;
+	int index = 1;
+
+	if (!arr || !(arr[0]))
+		return (NULL);
+	first = ft_lstnew(*(arr[0]));
+	if (!first)
+		return (NULL);
+	while (arr[index])
+	{
+		next = ft_lstnew(*(arr[index++]));
+		if (!next)
+			return (ft_lstclear(&first), NULL);
+		ft_lstadd_back(&first, next);
+	}
+	return (first);
+}
+
+void bubblesort(int **arr, int n)
+{
+	int i;
+	int j;
+	int *temp;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		j = 0;
+		while (j < n - i - 1)
+		{
+			if (*arr[j] > *arr[j + 1])
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	if (argc < 2) return (1);
-	int index = 0;
 	int **thing = argstoarr(argc - 1, argv + 1);
-	while (thing[index])
-		printf("%d\n", *(thing[index++]));
+	int **tosort = argstoarr(argc - 1, argv + 1);
+	t_list *lst = arrtolst(thing);
+	t_list *cpy = lst;
+	bubblesort(tosort, argc - 1);
+	ft_lstclear(&cpy);
 	freeintarr(thing);
+	freeintarr(tosort);
 }
