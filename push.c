@@ -6,47 +6,44 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:50:04 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/09 14:06:06 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 20:08:51 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linkedlist.h"
+#include "push_swap.h"
 
-static int push(t_list **a, t_list **b)
+static int push(t_list **src, t_list **dest)
 {
-	t_list *afirst;
-	t_list *bfirst;
-
-	if (!b || !a)
+	t_list *src_first;
+	if (!src || !*src)
 		return (0);
-	afirst = *a;
-	bfirst = *b;
-	if (!bfirst)
-		return (0);
-	*b = bfirst->next;
-	bfirst->next = afirst;
-	*a = bfirst;
+	src_first = *src;
+	*src = src_first->next;
+	src_first->next = *dest;
+	*dest = src_first;
 	return (1);
 }
 
 /**
  * Takes and removes first element from B, pushes to top of A
- * @param a List A
- * @param b List B
+ * @param src List B
+ * @param dest List A
  * @returns 1 on success, 0 on failure
  */
-int pa(t_list **a, t_list **b)
+int pa(t_list **src, t_list **dest)
 {
-	return push(a, b);
+	printf("pa\n");
+	return push(src, dest);
 }
 
 /**
  * Takes and removes first element from A, pushes to top of B
- * @param b List B
- * @param a List A
+ * @param src List A
+ * @param dest List B
  * @returns 1 on success, 0 on failure
  */
-int pb(t_list **b, t_list **a)
+int pb(t_list **src, t_list **dest)
 {
-	return (push(b, a));
+	printf("pb\n");
+	return (push(src, dest));
 }

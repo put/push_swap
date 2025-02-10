@@ -6,14 +6,15 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:37:04 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 17:39:40 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 19:13:35 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LINKEDLIST_H
 # define LINKEDLIST_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 typedef struct t_list
 {

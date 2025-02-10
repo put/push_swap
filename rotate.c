@@ -6,54 +6,36 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 14:06:43 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/09 14:25:53 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 20:10:09 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linkedlist.h"
+#include "push_swap.h"
 
-int	rotate(t_list **list)
+int rotate(t_list **list)
 {
-	t_list	*first;
-	t_list	*second;
-	t_list	*last;
-	t_list	*prev;
+	t_list *first;
+	t_list *last;
 
 	if (!list || !*list || !(*list)->next)
 		return (0);
 	first = *list;
-	second = first->next;
-	last = first;
-	prev = NULL;
-	while (last->next)
-	{
-		prev = last;
-		last = last->next;
-	}
-	if (prev)
-		prev->next = NULL;
-	last->next = first;
+	*list = first->next;
 	first->next = NULL;
-	*list = second;
+	last = *list;
+	while (last->next)
+		last = last->next;
+	last->next = first;
 	return (1);
 }
 
+/**
+ * Rotates list A. First element becomes the last, second becomes the first
+ * @param a List A
+ * @returns 0 if fail, 1 if success
+ */
 int	ra(t_list **a)
 {
+	printf("ra\n");
 	return (rotate(a));
 }
-
-int	rb(t_list **b)
-{
-	return (rotate(b));
-}
-
-int	rr(t_list **a, t_list **b)
-{
-	if ((!a || !*a || !(*a)->next) || (!b || !*b || !(*b)->next))
-		return (0);
-	rotate(a);
-	rotate(b);
-	return (1);
-}
-

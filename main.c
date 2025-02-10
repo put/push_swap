@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 18:35:09 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 21:23:08 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,15 +114,64 @@ void normalize(int **tochange, int **tosort, int sz)
 	}
 }
 
+int getmaxbits(int lstsize)
+{
+	int bits;
+	int valuecount;
+
+	bits = 0;
+	valuecount = lstsize;
+	while ((valuecount >> bits) != 0)
+		bits++;
+	return (bits);
+}
+
+int radix_sort(t_list **a, t_list **b, int size, int bits)
+{
+	int bit;
+	int sizecpy;
+	int total;
+	t_list *curr;
+
+	total = 0;
+	bit = 0;
+	while (bit < bits)
+	{
+		sizecpy = size;
+		while (sizecpy--)
+		{
+			curr = *a;
+			if ((curr->content >> bit) & 1)
+				total += ra(a);
+			else
+				total += pb(a, b);
+		}
+		while (*b)
+			total += pa(b, a);
+		bit++;
+	}
+	return (total);
+}
+
+
 int main(int argc, char **argv)
 {
-	int index = 0;
+	int total;
 	if (argc < 2) return (1);
 	int **thing = argstoarr(argc - 1, argv + 1);
 	int **tosort = argstoarr(argc - 1, argv + 1);
 	normalize(thing, tosort, argc - 1);
-	while (thing[index])
-		printf("%d\n", *(thing[index++]));
+	t_list *normlst = arrtolst(thing);
+	t_list *b = NULL;
+	total = radix_sort(&normlst, &b, argc - 1, getmaxbits(argc - 1));
+	printf("Sorted in %d actions\n", total);
+	b = normlst;
+	while (normlst)
+	{
+		printf("%d\n", normlst->content);
+		normlst = normlst->next;
+	}
+	ft_lstclear(&b);
 	freeintarr(thing);
 	freeintarr(tosort);
 }
