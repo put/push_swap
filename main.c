@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 18:02:13 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 18:33:40 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,38 @@ void bubblesort(int **arr, int n)
 	}
 }
 
+void normalize(int **tochange, int **tosort, int sz)
+{
+	int i;
+	int j;
+	
+	bubblesort(tosort, sz);
+	i = 0;
+	while (i < sz)
+	{
+		j = 0;
+		while (j < sz)
+		{
+			if (*(tosort[i]) == *(tochange[j]))
+			{
+				*(tochange[j]) = i;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int main(int argc, char **argv)
 {
+	int index = 0;
 	if (argc < 2) return (1);
 	int **thing = argstoarr(argc - 1, argv + 1);
 	int **tosort = argstoarr(argc - 1, argv + 1);
-	t_list *lst = arrtolst(thing);
-	t_list *cpy = lst;
-	bubblesort(tosort, argc - 1);
-	ft_lstclear(&cpy);
+	normalize(thing, tosort, argc - 1);
+	while (thing[index])
+		printf("%d\n", *(thing[index++]));
 	freeintarr(thing);
 	freeintarr(tosort);
 }
