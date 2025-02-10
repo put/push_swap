@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:41:56 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/09 13:45:49 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 17:31:22 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_list	*make_item(int content)
 	return (res);
 }
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(int))
+t_list	*ft_lstmap(t_list *lst, int (*f)(int))
 {
 	t_list	*reslst;
 	t_list	*tmplst;
