@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 18:33:40 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/10 18:35:09 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void normalize(int **tochange, int **tosort, int sz)
 {
 	int i;
 	int j;
-	
+
 	bubblesort(tosort, sz);
 	i = 0;
 	while (i < sz)
