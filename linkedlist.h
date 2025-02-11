@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:37:04 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 19:13:35 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 01:27:14 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 # define LINKEDLIST_H
 
 # include <stdlib.h>
-# include <stdio.h>
 
-typedef struct t_list
+typedef struct ps_list
 {
 	int				content;
-	struct t_list	*next;
-}	t_list;
+	struct ps_list	*next;
+}	ps_list;
 
-t_list	*ft_lstnew(int content);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstclear(t_list **lst);
+ps_list	*ps_lstnew(int content);
+void	ps_lstadd_back(ps_list **lst, ps_list *new);
+void	ps_lstadd_front(ps_list **lst, ps_list *new);
+int		ps_lstsize(ps_list *lst);
+ps_list	*ps_lstlast(ps_list *lst);
+void	ps_lstclear(ps_list **lst);
 #endif

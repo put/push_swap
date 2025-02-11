@@ -6,26 +6,26 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:36:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/09 13:41:44 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 01:26:52 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linkedlist.h"
 
-t_list	*ft_lstnew(int content)
+ps_list	*ps_lstnew(int content)
 {
-	t_list	*new;
+	ps_list	*new;
 
-	new = malloc(sizeof(t_list));
+	new = malloc(sizeof(ps_list));
 	if (new == NULL)
 		return (NULL);
-	*new = (t_list){content, NULL};
+	*new = (ps_list){content, NULL};
 	return (new);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ps_lstadd_back(ps_list **lst, ps_list *new)
 {
-	t_list	*lastlst;
+	ps_list	*lastlst;
 
 	if (!new)
 		return ;
@@ -34,11 +34,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return ;
 	}
-	lastlst = ft_lstlast(*lst);
+	lastlst = ps_lstlast(*lst);
 	lastlst->next = new;
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ps_lstadd_front(ps_list **lst, ps_list *new)
 {
 	if (!new)
 		return ;
@@ -46,7 +46,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	*lst = new;
 }
 
-int	ft_lstsize(t_list *lst)
+int	ps_lstsize(ps_list *lst)
 {
 	int	size;
 
@@ -59,7 +59,7 @@ int	ft_lstsize(t_list *lst)
 	return (size);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+ps_list	*ps_lstlast(ps_list *lst)
 {
 	if (!lst)
 		return (NULL);

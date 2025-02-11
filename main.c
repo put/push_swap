@@ -6,13 +6,11 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 21:23:08 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 01:30:32 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "linkedlist.h"
-#include <stdio.h>
 
 void freeintarr(int **arr)
 {
@@ -46,23 +44,57 @@ int **argstoarr(int count, char **args)
 	return (arr);
 }
 
-t_list *arrtolst(int **arr)
+int check_dupes(int **arr)
 {
-	t_list *first;
-	t_list *next;
+	int i;
+	int j;
+
+	i = 0;
+	while (arr && arr[i])
+	{
+		j = 0;
+		while (arr && arr[j])
+		{
+			if (j != i && *(arr[j]) == *(arr[i]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int check_already_sorted(int **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr && arr[i] && arr[i + 1])
+	{
+		if (*(arr[i]) >= *(arr[i + 1]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+ps_list *arrtolst(int **arr)
+{
+	ps_list *first;
+	ps_list *next;
 	int index = 1;
 
 	if (!arr || !(arr[0]))
 		return (NULL);
-	first = ft_lstnew(*(arr[0]));
+	first = ps_lstnew(*(arr[0]));
 	if (!first)
 		return (NULL);
 	while (arr[index])
 	{
-		next = ft_lstnew(*(arr[index++]));
+		next = ps_lstnew(*(arr[index++]));
 		if (!next)
-			return (ft_lstclear(&first), NULL);
-		ft_lstadd_back(&first, next);
+			return (ps_lstclear(&first), NULL);
+		ps_lstadd_back(&first, next);
 	}
 	return (first);
 }
@@ -126,12 +158,12 @@ int getmaxbits(int lstsize)
 	return (bits);
 }
 
-int radix_sort(t_list **a, t_list **b, int size, int bits)
+int radix_sort(ps_list **a, ps_list **b, int size, int bits)
 {
 	int bit;
 	int sizecpy;
 	int total;
-	t_list *curr;
+	ps_list *curr;
 
 	total = 0;
 	bit = 0;
@@ -156,22 +188,23 @@ int radix_sort(t_list **a, t_list **b, int size, int bits)
 
 int main(int argc, char **argv)
 {
-	int total;
-	if (argc < 2) return (1);
-	int **thing = argstoarr(argc - 1, argv + 1);
-	int **tosort = argstoarr(argc - 1, argv + 1);
+	int **thing;
+	int **tosort;
+	ps_list *normlst;
+	ps_list *b;
+	
+	if (argc < 2)
+		return(ft_printf("Error\nInvalid number of arguments"));
+	thing = argstoarr(argc - 1, argv + 1);
+	if (!check_dupes(thing))
+		return(ft_printf("Error\nDuplicates found"), 1);
+	tosort = argstoarr(argc - 1, argv + 1);
 	normalize(thing, tosort, argc - 1);
-	t_list *normlst = arrtolst(thing);
-	t_list *b = NULL;
-	total = radix_sort(&normlst, &b, argc - 1, getmaxbits(argc - 1));
-	printf("Sorted in %d actions\n", total);
+	normlst = arrtolst(thing);
+	b = NULL;
+	radix_sort(&normlst, &b, argc - 1, getmaxbits(argc - 1));
 	b = normlst;
-	while (normlst)
-	{
-		printf("%d\n", normlst->content);
-		normlst = normlst->next;
-	}
-	ft_lstclear(&b);
+	ps_lstclear(&b);
 	freeintarr(thing);
 	freeintarr(tosort);
 }

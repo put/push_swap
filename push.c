@@ -6,15 +6,15 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:50:04 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/10 20:08:51 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 01:26:52 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int push(t_list **src, t_list **dest)
+static int push(ps_list **src, ps_list **dest)
 {
-	t_list *src_first;
+	ps_list *src_first;
 	if (!src || !*src)
 		return (0);
 	src_first = *src;
@@ -30,9 +30,9 @@ static int push(t_list **src, t_list **dest)
  * @param dest List A
  * @returns 1 on success, 0 on failure
  */
-int pa(t_list **src, t_list **dest)
+int pa(ps_list **src, ps_list **dest)
 {
-	printf("pa\n");
+	ft_printf("pa\n");
 	return push(src, dest);
 }
 
@@ -42,8 +42,8 @@ int pa(t_list **src, t_list **dest)
  * @param dest List B
  * @returns 1 on success, 0 on failure
  */
-int pb(t_list **src, t_list **dest)
+int pb(ps_list **src, ps_list **dest)
 {
-	printf("pb\n");
+	ft_printf("pb\n");
 	return (push(src, dest));
 }
