@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   list_basic.c                                       :+:    :+:            */
+/*   linkedlist.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/09 13:36:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 01:26:52 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 03:48:43 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linkedlist.h"
 
-ps_list	*ps_lstnew(int content)
+t_pslist	*ps_lstnew(int content)
 {
-	ps_list	*new;
+	t_pslist	*new;
 
-	new = malloc(sizeof(ps_list));
+	new = malloc(sizeof(t_pslist));
 	if (new == NULL)
 		return (NULL);
-	*new = (ps_list){content, NULL};
+	*new = (t_pslist){content, NULL};
 	return (new);
 }
 
-void	ps_lstadd_back(ps_list **lst, ps_list *new)
+void	ps_lstadd_back(t_pslist **lst, t_pslist *new)
 {
-	ps_list	*lastlst;
+	t_pslist	*lastlst;
 
 	if (!new)
 		return ;
@@ -38,32 +38,33 @@ void	ps_lstadd_back(ps_list **lst, ps_list *new)
 	lastlst->next = new;
 }
 
-void	ps_lstadd_front(ps_list **lst, ps_list *new)
-{
-	if (!new)
-		return ;
-	new->next = *lst;
-	*lst = new;
-}
-
-int	ps_lstsize(ps_list *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
-}
-
-ps_list	*ps_lstlast(ps_list *lst)
+t_pslist	*ps_lstlast(t_pslist *lst)
 {
 	if (!lst)
 		return (NULL);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+void	ps_lstdelone(t_pslist *lst)
+{
+	if (!lst)
+		return ;
+	free(lst);
+}
+
+void	ps_lstclear(t_pslist **lst)
+{
+	t_pslist	*tmplst;
+
+	if (!lst || !*lst)
+		return ;
+	while (*lst)
+	{
+		tmplst = (*lst)->next;
+		ps_lstdelone(*lst);
+		*lst = tmplst;
+	}
+	*lst = NULL;
 }

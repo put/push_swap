@@ -1,7 +1,8 @@
 NAME = push_swap
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SRCS = list_adv.c list_basic.c main.c push.c rotate.c
+SRCS = converting.c linkedlist.c push.c rotate.c helpers.c sorting.c swap.c \
+		main.c
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

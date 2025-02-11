@@ -3,3 +3,4 @@
 /checker_linux
 /checker_Mac
 /libft
+*.o
