@@ -6,7 +6,7 @@
 /*   By: mika <mika@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 01:30:32 by mika          ########   odam.nl         */
+/*   Updated: 2025/02/11 01:48:35 by mika          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,26 +185,39 @@ int radix_sort(ps_list **a, ps_list **b, int size, int bits)
 	return (total);
 }
 
+int arrlen(char **arr)
+{
+	int count = 0;
+	while (arr && arr[count])
+		count++;
+	return (count);
+}
+
 
 int main(int argc, char **argv)
 {
 	int **thing;
 	int **tosort;
+	char **args;
 	ps_list *normlst;
 	ps_list *b;
 	
-	if (argc < 2)
+	if (argc != 2)
 		return(ft_printf("Error\nInvalid number of arguments"));
-	thing = argstoarr(argc - 1, argv + 1);
+	args = ft_split(argv[1], ' ');
+	if (!args)
+		return (ft_printf("Error\nSplitting args failed"), 1);
+	thing = argstoarr(arrlen(args), args);
+	tosort = argstoarr(arrlen(args), args);
+	if (!thing || !tosort)
+		return(ft_printf("Error\nArray mallocs failed"), 1);
 	if (!check_dupes(thing))
 		return(ft_printf("Error\nDuplicates found"), 1);
-	tosort = argstoarr(argc - 1, argv + 1);
-	normalize(thing, tosort, argc - 1);
+	normalize(thing, tosort, arrlen(args));
 	normlst = arrtolst(thing);
 	b = NULL;
-	radix_sort(&normlst, &b, argc - 1, getmaxbits(argc - 1));
-	b = normlst;
-	ps_lstclear(&b);
+	radix_sort(&normlst, &b, arrlen(args), getmaxbits(arrlen(args)));
+	ps_lstclear(&normlst);
 	freeintarr(thing);
 	freeintarr(tosort);
 }
