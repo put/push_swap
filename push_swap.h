@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   push_swap.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 19:29:37 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:51:56 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 19:29:37 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:48:15 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 # include "linkedlist.h"
 # include <unistd.h>
 
-int			pa(t_pslist **src, t_pslist **dest);
-int			pb(t_pslist **src, t_pslist **dest);
-int			ra(t_pslist **a);
-int			rra(t_pslist **a);
-int			sa(t_pslist **a);
-int			ft_atoi(const char *nptr);
+void		pa(t_pslist **src, t_pslist **dest);
+void		pb(t_pslist **src, t_pslist **dest);
+void		ra(t_pslist **a);
+void		rra(t_pslist **a);
+void		ra2(t_pslist **a);
+void		rra2(t_pslist **a);
+void		sa(t_pslist **a);
+int			ps_atoi(const char *nptr, int *err);
 t_pslist	*arrtolst(int **arr);
 void		normalize(int **tochange, int **tosort, int sz);
 int			**argstoarr(int count, char **args);

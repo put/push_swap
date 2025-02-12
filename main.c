@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 17:20:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:51:28 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 17:20:19 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:53:54 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 void	freeintarr(int **arr)
 {
@@ -82,6 +83,8 @@ int	main(int argc, char **argv)
 	if (!args)
 		return (err());
 	arr = argstoarr(arrlen(args), args);
+	if (!arr)
+		return (freestrarr(args), err());
 	tosort = argstoarr(arrlen(args), args);
 	if (!arr || !tosort || !check_dupes(arr) || check_already_sorted(arr))
 		return (freeintarr(arr), freeintarr(tosort), freestrarr(args), err());

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   helpers.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/11 03:13:15 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:48:43 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 03:13:15 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:30:33 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,20 @@ int	findlowest(t_pslist *list)
 	int	lowest_pos;
 	int	lowest_val;
 
+	if (!list)
+		return (-1);
 	current_pos = 0;
-	lowest_pos = 1;
-	while (list && list->next)
+	lowest_pos = 0;
+	lowest_val = list->content;
+	while (list)
 	{
-		if (current_pos == 0)
+		if (list->content < lowest_val)
 		{
-			current_pos = 1;
 			lowest_val = list->content;
+			lowest_pos = current_pos;
 		}
-		if (lowest_val > list->next->content)
-		{
-			lowest_pos = current_pos + 1;
-			lowest_val = list->next->content;
-		}
-		current_pos++;
 		list = list->next;
+		current_pos++;
 	}
 	return (lowest_pos);
 }

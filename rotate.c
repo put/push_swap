@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rotate.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/09 14:06:43 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:48:43 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:06:43 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:52:25 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	rotate(t_pslist **list)
+void	ra(t_pslist **list)
 {
 	t_pslist	*first;
 	t_pslist	*last;
 
+	write(1, "ra\n", 3);
 	if (!list || !*list || !(*list)->next)
-		return (0);
+		return ;
 	first = *list;
 	*list = first->next;
 	first->next = NULL;
@@ -26,16 +27,16 @@ int	rotate(t_pslist **list)
 	while (last->next)
 		last = last->next;
 	last->next = first;
-	return (1);
 }
 
-int	reverse_rotate(t_pslist **list)
+void	rra(t_pslist **list)
 {
 	t_pslist	*last;
 	t_pslist	*second_last;
 
+	write(1, "rra\n", 4);
 	if (!list || !*list || !(*list)->next)
-		return (0);
+		return ;
 	last = *list;
 	second_last = NULL;
 	while (last->next)
@@ -46,28 +47,17 @@ int	reverse_rotate(t_pslist **list)
 	second_last->next = NULL;
 	last->next = *list;
 	*list = last;
-	return (1);
+	return ;
 }
 
-/**
- * Rotates list A. First element becomes the last, second becomes the first
- * @param a List A
- * @returns 0 if fail, 1 if success
- */
-int	ra(t_pslist **a)
+void	ra2(t_pslist **a)
 {
-	write(1, "ra\n", 3);
-	return (rotate(a));
+	ra(a);
+	ra(a);
 }
 
-/**
- * Reverse rotates list A. Last element becomes first,
- * and the first element becomes the second
- * @param a List A
- * @returns 0 if fail, 1 if success
- */
-int	rra(t_pslist **a)
+void	rra2(t_pslist **a)
 {
-	write(1, "rra\n", 4);
-	return (reverse_rotate(a));
+	rra(a);
+	rra(a);
 }

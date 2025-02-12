@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   converting.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/11 03:17:19 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:49:30 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   converting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 03:17:19 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:44:39 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "limits.h"
 
 t_pslist	*arrtolst(int **arr)
 {
@@ -57,10 +58,33 @@ void	normalize(int **tochange, int **tosort, int sz)
 	}
 }
 
+int	ps_atoi(const char *nptr, int *err)
+{
+	long	sig;
+	long	res;
+
+	res = 0;
+	sig = 1;
+	*err = 1;
+	while ((*nptr > 8 && *nptr < 14) || *nptr == ' ')
+		sig = (*nptr++ || res == 0);
+	if (*nptr == 43 || *nptr == 45)
+		sig = (*nptr++ - 44) * -1;
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10 + (*nptr++ - 48);
+		if (res > INT_MAX)
+			return ((int)res);
+	}
+	*err = 0;
+	return ((int)(sig * res));
+}
+
 int	**argstoarr(int count, char **args)
 {
 	int	**arr;
 	int	index;
+	int	err;
 
 	arr = calloc(count + 1, sizeof(int *));
 	index = 0;
@@ -77,24 +101,10 @@ int	**argstoarr(int count, char **args)
 	index = 0;
 	while (index < count)
 	{
-		*(arr[index]) = atoi(args[index]);
+		*(arr[index]) = ps_atoi(args[index], &err);
+		if (err)
+			return (freeintarr(arr), NULL);
 		index++;
 	}
 	return (arr);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	long	sig;
-	long	res;
-
-	res = 0;
-	sig = 1;
-	while ((*nptr > 8 && *nptr < 14) || *nptr == ' ')
-		sig = (*nptr++ || res == 0);
-	if (*nptr == 43 || *nptr == 45)
-		sig = (*nptr++ - 44) * -1;
-	while (*nptr >= '0' && *nptr <= '9')
-		res = res * 10 + (*nptr++ - 48);
-	return ((int)(sig * res));
 }

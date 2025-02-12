@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   sorting.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mika <mika@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/11 03:15:29 by mika          #+#    #+#                 */
-/*   Updated: 2025/02/11 03:51:16 by mika          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   sorting.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 03:15:29 by mika              #+#    #+#             */
+/*   Updated: 2025/02/12 18:43:44 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	sortthree(t_pslist **a)
 		sa(a);
 		rra(a);
 	}
-	else if (first > second && second < third)
-		sa(a);
+	else if (first > second && second < third && first > third)
+		ra(a);
 	else if (first < second && second > third && first < third)
 	{
 		sa(a);
-		rra(a);
+		ra(a);
 	}
-	else if (first < second && second > third)
+	else if (first < second && second > third && first > third)
 		rra(a);
 }
 
@@ -84,27 +84,23 @@ void	sortfive(t_pslist **a, t_pslist **b, int min_pos)
 	if (min_pos == 1)
 		ra(a);
 	else if (min_pos == 2)
-	{
-		ra(a);
-		ra(a);
-	}
+		ra2(a);
 	else if (min_pos == 3)
-	{
-		rra(a);
-		rra(a);
-	}
+		rra2(a);
 	else if (min_pos == 4)
 		rra(a);
 	pb(a, b);
 	min_pos = findlowest(*a);
-	if (min_pos == 1 || min_pos == 2)
+	if (min_pos == 1)
 		ra(a);
+	else if (min_pos == 2)
+		ra2(a);
 	else if (min_pos == 3)
 		rra(a);
 	pb(a, b);
 	sortthree(a);
-	pa(a, b);
-	pa(a, b);
+	pa(b, a);
+	pa(b, a);
 }
 
 void	bubblesort(int **arr, int n)
