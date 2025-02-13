@@ -6,7 +6,7 @@
 /*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 03:17:19 by mika              #+#    #+#             */
-/*   Updated: 2025/02/12 18:44:39 by mschippe         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:53:21 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	ps_atoi(const char *nptr, int *err)
 		if (res > INT_MAX)
 			return ((int)res);
 	}
-	*err = 0;
+	if (!*nptr)
+		*err = 0;
 	return ((int)(sig * res));
 }
 
@@ -94,8 +95,8 @@ int	**argstoarr(int count, char **args)
 	while (index < count)
 	{
 		arr[index] = malloc(sizeof(int));
-		if (!arr)
-			return (freeintarr(arr), NULL);
+		if (!arr[index])
+			return (fa((void **)arr), NULL);
 		index++;
 	}
 	index = 0;
@@ -103,7 +104,7 @@ int	**argstoarr(int count, char **args)
 	{
 		*(arr[index]) = ps_atoi(args[index], &err);
 		if (err)
-			return (freeintarr(arr), NULL);
+			return (fa((void **)arr), NULL);
 		index++;
 	}
 	return (arr);

@@ -6,14 +6,14 @@
 /*   By: mschippe <mschippe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:20:19 by mika              #+#    #+#             */
-/*   Updated: 2025/02/12 18:53:54 by mschippe         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:52:57 by mschippe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft/libft.h"
 
-void	freeintarr(int **arr)
+void	fa(void **arr)
 {
 	int	index;
 
@@ -23,14 +23,12 @@ void	freeintarr(int **arr)
 	free(arr);
 }
 
-void	freestrarr(char **arr)
+void	freeall(t_pslist **lst, int **one, int **two, char **three)
 {
-	int	index;
-
-	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
+	ps_lstclear(lst);
+	fa((void **)one);
+	fa((void **)two);
+	fa((void **)three);
 }
 
 int	check_dupes(int **arr)
@@ -77,23 +75,23 @@ int	main(int argc, char **argv)
 	t_pslist	*normlst;
 	t_pslist	*b;
 
-	if (argc != 2)
-		return (err());
-	args = ft_split(argv[1], ' ');
+	if (argc < 2)
+		return (0);
+	args = getargs(argc, argv);
 	if (!args)
 		return (err());
 	arr = argstoarr(arrlen(args), args);
 	if (!arr)
-		return (freestrarr(args), err());
+		return (fa((void **)args), err());
 	tosort = argstoarr(arrlen(args), args);
-	if (!arr || !tosort || !check_dupes(arr) || check_already_sorted(arr))
-		return (freeintarr(arr), freeintarr(tosort), freestrarr(args), err());
+	if (!tosort || !check_dupes(arr))
+		return (fa((void **)arr), fa((void **)tosort),
+			fa((void **)args), err());
+	if (check_already_sorted(arr))
+		return (fa((void **)arr), fa((void **)tosort), fa((void **)args), 0);
 	normalize(arr, tosort, arrlen(args));
 	normlst = arrtolst(arr);
 	b = NULL;
 	ps_sort(&normlst, &b, arrlen(args), getmaxbits(arrlen(args)));
-	ps_lstclear(&normlst);
-	freeintarr(arr);
-	freeintarr(tosort);
-	freestrarr(args);
+	freeall(&normlst, arr, tosort, args);
 }
